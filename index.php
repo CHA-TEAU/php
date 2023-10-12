@@ -1,108 +1,50 @@
-<?
-    var_dump($_POST)
+<!-- 
+// var_dump($_FILES);
 
-?>
+// $udir = 'files/';
+// $uploadfile = $udir.$_FILES['ufile']['name'];
+// echo $uploadfile;
 
+// if (move_uploaded_file($_FILES['ufile']['tmp_name'], $uploadfile)){
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+//     echo "File upload was successfull";
+// } -->
 
 
-<form method="POST">
 
-<input type="text" name="tr" placeholder="tr">
-<input type="text" name="td" placeholder="td">
-
-<input type="submit">
-</form>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="ufile">
+        <input type="submit" value="send">
+    </form>
 
 
-<table border="1">
 
-<?
-    if(!empty($_POST))
+    <pre>
+
+
+<?php
+    
+    include "oop.php";
+    
+    $fw = new FileWorker();
+    
+
+    if(!empty($_FILES))
     {
-        $tr = $_POST['tr'];
-        $td = $_POST['td'];
-        for($i = 0; $i < $tr; $i++)
+        $status = $fw -> UploadFileForm('files', 'ufile');
+        var_dump($status);
+
+        if($status)
         {
-            ?>
-            
-            <tr><?=$i?></tr>
-            
-            <?
-            for($j = 0; $j < $td; $j++)
-            {
-                ?>
-                <td><?=$j?></td>
-                <?
-            }
+            echo "ok";
+        }
+        else
+        {
+            echo 'ne ok';
         }
     }
 
-
-    $users = [
-        1 => [
-            'name' => 'Valera',
-            'surname' => 'Ivanov',
-            'age' => 23,
-        ],
-
-        2 => [
-            'name' => 'Yrui',
-            'surname' => 'Ivanov',
-            'age' => 48,
-        ],
-
-        3 => [
-            'name' => 'Mariah',
-            'surname' => 'Ivanova',
-            'age' => 36,
-        ],
-    ];
-
-
-    if(!empty($users))
-    {
-        ?>
-        <table>
-        <?php
-
-        foreach($users as $key => $value)
-        {
-            ?><tr><?
-            ?><td><?
-            echo $key;
-            ?></td><?
-
-            foreach($value as $key => $info)
-            {
-                ?><td><?
-                echo $info
-                ?></td><?
-            }
-            
-            
-            ?></tr><?
-        }
-
-        ?>
-        </table>
-        <?
-    }
+    
     
 ?>
-
-
-
-
-</table>
-    
-</body>
-</html>
+</pre>
