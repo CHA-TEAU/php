@@ -112,76 +112,76 @@
 // }
 ?>
 
-<?php
+<!-- <?php
 
-include 'DBCrud.php';
-$dbcrud = new DBCrud('zoo', 'localhost', 'root', '', 'testdb');
-
-
-$arr = [
-    "Animal" => "Frog"
-];
+// include 'DBCrud.php';
+// $dbcrud = new DBCrud('zoo', 'localhost', 'root', '', 'testdb');
 
 
-$dbcrud->Insert($arr);
-
-$dbcrud->Delete('animal', "Собака");
-
-$dt = $dbcrud->Select(["id", "animal"]);
-echo '<pre>';
-var_dump($dt);
-echo '</pre>';
-$db = @new mysqli($db_address,$db_user, $db_pass,$db_testdb);
-if(isset($_POST['submit']))
-{
-    if($db->connection_errno)
-    {
-        echo "error: ".$db->connection_errno;
-    }else
-    {
-        $anim = $_POST['new_animal'];
-        $query = $db->query("INSERT INTO `zoo`(`animal`) VALUES ('$anim')");
-    }
-}
-
-if(isset($_POST['delete']))
-{
-    if($db->connection_errno)
-    {
-        echo "error: ".$db->connection_errno;
-    }else
-    {
-        $anim = $_POST['new_animal'];
-        $query = $db->query("DELETE FROM `zoo` WHERE `animal` = '$anim';");
-    }
-}
+// $arr = [
+//     "Animal" => "Frog"
+// ];
 
 
+// $dbcrud->Insert($arr);
 
-if($db->connection_errno)
-{
-    echo "error: ".$db->connection_errno;
-}else{
-    $query = $db->query("SELECT * FROM `zoo`");
-    //$res = $query->fetch_assoc();
-    echo '<table border="1">';
-    while($row = $query->fetch_assoc())
-    {
-        echo '<tr>';
+// $dbcrud->Delete('animal', "Собака");
 
-        echo '<td>';
-        echo $row['id'];
-        echo '</td>';
+// $dt = $dbcrud->Select(["id", "animal"]);
+// echo '<pre>';
+// var_dump($dt);
+// echo '</pre>';
+// $db = @new mysqli($db_address,$db_user, $db_pass,$db_testdb);
+// if(isset($_POST['submit']))
+// {
+//     if($db->connection_errno)
+//     {
+//         echo "error: ".$db->connection_errno;
+//     }else
+//     {
+//         $anim = $_POST['new_animal'];
+//         $query = $db->query("INSERT INTO `zoo`(`animal`) VALUES ('$anim')");
+//     }
+// }
+
+// if(isset($_POST['delete']))
+// {
+//     if($db->connection_errno)
+//     {
+//         echo "error: ".$db->connection_errno;
+//     }else
+//     {
+//         $anim = $_POST['new_animal'];
+//         $query = $db->query("DELETE FROM `zoo` WHERE `animal` = '$anim';");
+//     }
+// }
 
 
-        echo '<td>';
-        echo $row['animal'];
-        echo '</td>';
 
-        echo '</tr>';
+// if($db->connection_errno)
+// {
+//     echo "error: ".$db->connection_errno;
+// }else{
+//     $query = $db->query("SELECT * FROM `zoo`");
+//     //$res = $query->fetch_assoc();
+//     echo '<table border="1">';
+//     while($row = $query->fetch_assoc())
+//     {
+//         echo '<tr>';
+
+//         echo '<td>';
+//         echo $row['id'];
+//         echo '</td>';
+
+
+//         echo '<td>';
+//         echo $row['animal'];
+//         echo '</td>';
+
+//         echo '</tr>';
         
-    }
-    echo '</table>';
+//     }
+    // echo '</table>';
     //var_dump($res);
 }
 ?>
@@ -193,4 +193,76 @@ if($db->connection_errno)
     <input type="submit" value="Add" name="submit">
     <input type="submit" value="Delete" name="del">
 
-</form>
+</form> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+
+// include 'DBCrud.php';
+
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <?
+    
+         $status = false;
+         if($_POST['auth']){
+
+             $login = $_POST['login'];
+             $pass = $_POST['pass'];
+
+             if(!empty($login) and !empty($pass)){
+                 $db = @new mysqli('localhost', 'root', '', 'shop');
+                 if ($db->connection_errno) {
+                     echo "error: " . $db->connection_errno;
+                 } else {
+                     $query = $db->query("SELECT * FROM `users` WHERE `login` = '$login' AND `pass` = '$pass'");
+                     $row = $query->fetch_assoc();
+
+                     var_dump($row);
+
+                 }
+             }
+         }
+    ?>
+
+
+
+    <form method="post" >
+
+        <input type="text" name="login" require>
+        <input type="text" name="pass" require>
+        <input type="submit" value="Send" name="auth">
+
+    </form>
+    
+</body>
+</html>
